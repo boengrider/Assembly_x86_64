@@ -68,6 +68,8 @@ mov qword [qResult], rax
 last:
 mov rax, SYS_exit
 ; Call code for exit
-mov rdi, EXIT_SUCCESS
+; Instead of exit status, put result of the last sumation into the rdi
+; mov rdi, EXIT_SUCCESS
+mov rdi, qword [qVar1]
 ; Exit program with success
 syscall
