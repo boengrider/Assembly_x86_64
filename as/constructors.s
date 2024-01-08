@@ -25,6 +25,63 @@ _ZN6PersonC2Ev:
 	.size	_ZN6PersonC2Ev, .-_ZN6PersonC2Ev
 	.weak	_ZN6PersonC1Ev
 	.set	_ZN6PersonC1Ev,_ZN6PersonC2Ev
+	.section	.text._ZN6PersonC2Ei,"axG",@progbits,_ZN6PersonC5Ei,comdat
+	.align 2
+	.weak	_ZN6PersonC2Ei
+	.type	_ZN6PersonC2Ei, @function
+_ZN6PersonC2Ei:
+.LFB4:
+	.cfi_startproc
+	endbr64
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movl	%esi, -12(%rbp)
+	movq	-8(%rbp), %rax
+	movl	-12(%rbp), %edx
+	movl	%edx, (%rax)
+	nop
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE4:
+	.size	_ZN6PersonC2Ei, .-_ZN6PersonC2Ei
+	.weak	_ZN6PersonC1Ei
+	.set	_ZN6PersonC1Ei,_ZN6PersonC2Ei
+	.section	.text._ZN6PersonC2Eii,"axG",@progbits,_ZN6PersonC5Eii,comdat
+	.align 2
+	.weak	_ZN6PersonC2Eii
+	.type	_ZN6PersonC2Eii, @function
+_ZN6PersonC2Eii:
+.LFB7:
+	.cfi_startproc
+	endbr64
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movl	%esi, -12(%rbp)
+	movl	%edx, -16(%rbp)
+	movl	-12(%rbp), %eax
+	imull	-16(%rbp), %eax
+	movl	%eax, %edx
+	movq	-8(%rbp), %rax
+	movl	%edx, (%rax)
+	nop
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE7:
+	.size	_ZN6PersonC2Eii, .-_ZN6PersonC2Eii
+	.weak	_ZN6PersonC1Eii
+	.set	_ZN6PersonC1Eii,_ZN6PersonC2Eii
 	.text
 	.globl	main
 	.type	main, @function
@@ -37,19 +94,42 @@ main:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	subq	$16, %rsp
+	pushq	%rbx
+	subq	$40, %rsp
+	.cfi_offset 3, -24
 	movq	%fs:40, %rax
-	movq	%rax, -8(%rbp)
+	movq	%rax, -24(%rbp)
 	xorl	%eax, %eax
-	leaq	-12(%rbp), %rax
+	leaq	-48(%rbp), %rax
 	movq	%rax, %rdi
 	call	_ZN6PersonC1Ev
-	movl	$0, %eax
-	movq	-8(%rbp), %rdx
+	leaq	-44(%rbp), %rax
+	movl	$2, %edx
+	movl	$10, %esi
+	movq	%rax, %rdi
+	call	_ZN6PersonC1Eii
+	movl	$4, %edi
+	call	_Znwm@PLT
+	movq	%rax, %rbx
+	movl	$5, %edx
+	movl	$10, %esi
+	movq	%rbx, %rdi
+	call	_ZN6PersonC1Eii
+	movq	%rbx, -40(%rbp)
+	movl	$4, %edi
+	call	_Znwm@PLT
+	movq	%rax, %rbx
+	movl	$30, %esi
+	movq	%rbx, %rdi
+	call	_ZN6PersonC1Ei
+	movq	%rbx, -32(%rbp)
+	movl	$4, %eax
+	movq	-24(%rbp), %rdx
 	subq	%fs:40, %rdx
-	je	.L4
+	je	.L6
 	call	__stack_chk_fail@PLT
-.L4:
+.L6:
+	movq	-8(%rbp), %rbx
 	leave
 	.cfi_def_cfa 7, 8
 	ret
