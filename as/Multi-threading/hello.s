@@ -18,22 +18,24 @@ _parent:
     lea %rdi, [%rip + msg1] # Load effective address of msg1 (1st argument to the print procedure) into %rdi where print procedure is expecting it
     mov %rsi, OFFSET msg1len # Load the length of msg1 (2nd argument of the print procedure) into %rsi where print procedure expects it to find
     call print # Call print procedure
-    jmp _exit
 
-    # Create pipe
-    # mov %rax, 0x16
+    lea %rdi, [%rip + greetingsA]
+    mov %rsi, 0x0c # Print 12 bytes
+    call print 
+
+    jmp _exit
     
 _child:
+    # 'set-up' the execution environment for 'print' utility procedure by loading apropriate registers
     # Print hello from the child process utilizing 'print' procedure defined in the util.o file
     lea %rdi, [%rip + msg2] # Load effective address of msg2 (1st argument to the print procedure) into %rdi where print procedure is expecting it
-    mov %rsi, OFFSET msg2len
-    call print
+    mov %rsi, OFFSET msg2len # Load string length (2nd argument) into the %rdi register
+    call print # Finally call the 'print' procedure
 
 _exit:
-    # Ask system for the 'exit' syscall
+    # Ask the system to exit process
     mov %rax, 0x3c # 'exit' system call on x64 Linux
-    # mov %rdi, 0x0 # Our exit code. All ok
-    mov %rdi, [pipeArray + 4] 
+    mov %rdi, 0x0 # Our exit code. All ok
     syscall
 
   
@@ -45,10 +47,10 @@ msg1:
 msg2:
     .ascii "Hello from the child process\n"
     msg2len = . - msg2
+greetingsA:
+    .int 0x6c65480a # \nHel
+greetingsB:
+    .int 0x77206f6c # lo W
+greetingsC:
+    .int 0x646c726f # orld
 
-len:
-    .byte 0x1d
-pipeArray:
-    .int 255,128
-    
-    
