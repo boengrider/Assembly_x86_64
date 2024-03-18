@@ -32,13 +32,24 @@ dVar1   dd 17000000
 dVar2   dd 9000000
 dResult dd 0
 
-section .data
 ;=====================
 ; Quad-word (64-bit)
 ;=====================
 qVar1   dq 1700000000
 qVar2   dq 900000000
 qResult dq 0
+
+;=====================
+; Struct Person
+; age: Byte
+; iq: Byte
+_personA:
+db 25
+db 120
+
+_personB: 
+db 30
+db 120
 
 
 ;***************************************************************
@@ -78,12 +89,19 @@ mov dword [wResult], eax
 mov rax, qword [qVar1]
 add rax, qword [qVar2]
 mov qword [qResult], rax
+push _personA
+call _personInspect
 
 ; Inspect stack procedure
 ; We should find return address pushed by the HW onto the stack
 _stackInspect:
 mov rdx, qword [rsp + 8]
 ret
+
+; Compare two Person objects
+_personInspect:
+mov al, byte [rsp + 9]
+call exit
 
 
 ; =======================
@@ -92,6 +110,5 @@ exit:
 mov rax, SYS_exit     ; Tell the OS/executive what we want to do 
 mov rdi, EXIT_SUCCESS ; Put the exit code in the rdi where the OS expects it
 syscall               ; Transfer control to the OS
-
 
 

@@ -33,66 +33,83 @@
     33 0000000D 40548900               dVar2 dd 9000000
     34 00000011 00000000               dResult dd 0
     35                                 
-    36                                 [section .data]
+    36                                 
     37                                 
     38                                 
-    39                                 
-    40 00000015 00F1536500000000       qVar1 dq 1700000000
-    41 0000001D 00E9A43500000000       qVar2 dq 900000000
-    42 00000025 0000000000000000       qResult dq 0
+    39 00000015 00F1536500000000       qVar1 dq 1700000000
+    40 0000001D 00E9A43500000000       qVar2 dq 900000000
+    41 00000025 0000000000000000       qResult dq 0
+    42                                 
     43                                 
     44                                 
     45                                 
     46                                 
-    47                                 
-    48                                 [section .text]
-    49                                 [global _start]
+    47                                 _personA:
+    48 0000002D 19                     db 25
+    49 0000002E 78                     db 120
     50                                 
-    51                                 
-    52                                 
-    53                                 _start:
+    51                                 _personB:
+    52 0000002F 1E                     db 30
+    53 00000030 78                     db 120
     54                                 
     55                                 
     56                                 
     57                                 
-    58 00000000 8A0425[00000000]       mov al, byte [bVar1]
-    59 00000007 020425[00000000]       add al, byte [bVar2]
-    60 0000000E 880425[00000000]       mov byte [bResult], al
-    61 00000015 6650                   push ax
-    62 00000017 E840000000             call _stackInspect
+    58                                 
+    59                                 [section .text]
+    60                                 [global _start]
+    61                                 
+    62                                 
     63                                 
-    64                                 
+    64                                 _start:
     65                                 
     66                                 
-    67 0000001C 668B0425[00000000]     mov ax, word [wVar1]
-    68 00000024 66030425[00000000]     add ax, word [wVar2]
-    69 0000002C 66890425[00000000]     mov word [wResult], ax
-    70                                 
-    71                                 
-    72                                 
-    73 00000034 8B0425[00000000]       mov eax, dword [dVar1]
-    74 0000003B 030425[00000000]       add eax, dword [dVar2]
-    75 00000042 890425[00000000]       mov dword [wResult], eax
+    67                                 
+    68                                 
+    69 00000000 8A0425[00000000]       mov al, byte [bVar1]
+    70 00000007 020425[00000000]       add al, byte [bVar2]
+    71 0000000E 880425[00000000]       mov byte [bResult], al
+    72 00000015 6650                   push ax
+    73 00000017 E84A000000             call _stackInspect
+    74                                 
+    75                                 
     76                                 
     77                                 
-    78                                 
-    79 00000049 488B0425[00000000]     mov rax, qword [qVar1]
-    80 00000051 48030425[00000000]     add rax, qword [qVar2]
-    81 00000059 48890425[00000000]     mov qword [qResult], rax
+    78 0000001C 668B0425[00000000]     mov ax, word [wVar1]
+    79 00000024 66030425[00000000]     add ax, word [wVar2]
+    80 0000002C 66890425[00000000]     mov word [wResult], ax
+    81                                 
     82                                 
     83                                 
-    84                                 
-    85                                 _stackInspect:
-    86 00000061 488B542408             mov rdx, qword [rsp + 8]
-    87 00000066 C3                     ret
+    84 00000034 8B0425[00000000]       mov eax, dword [dVar1]
+    85 0000003B 030425[00000000]       add eax, dword [dVar2]
+    86 00000042 890425[00000000]       mov dword [wResult], eax
+    87                                 
     88                                 
     89                                 
-    90                                 
-    91                                 
-    92                                 exit:
-    93 00000067 48C7C03C000000         mov rax, SYS_exit
-    94 0000006E 48C7C700000000         mov rdi, EXIT_SUCCESS
-    95 00000075 0F05                   syscall
+    90 00000049 488B0425[00000000]     mov rax, qword [qVar1]
+    91 00000051 48030425[00000000]     add rax, qword [qVar2]
+    92 00000059 48890425[00000000]     mov qword [qResult], rax
+    93 00000061 68[00000000]           push _personA
+    94 00000066 E801000000             call _personInspect
+    95                                 
     96                                 
     97                                 
-    98                                 
+    98                                 _stackInspect:
+    99 0000006B 488B542408             mov rdx, qword [rsp + 8]
+   100 00000070 C3                     ret
+   101                                 
+   102                                 
+   103                                 _personInspect:
+   104 00000071 8A442409               mov al, byte [rsp + 9]
+   105 00000075 E8FBFFFFFF             call exit
+   106                                 
+   107                                 
+   108                                 
+   109                                 
+   110                                 exit:
+   111 0000007A 48C7C03C000000         mov rax, SYS_exit
+   112 00000081 48C7C700000000         mov rdi, EXIT_SUCCESS
+   113 00000088 0F05                   syscall
+   114                                 
+   115                                 
