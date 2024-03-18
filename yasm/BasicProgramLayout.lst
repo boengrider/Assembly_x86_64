@@ -1,0 +1,98 @@
+     1                                 %line 1+1 BasicProgramLayout.s
+     2                                 
+     3                                 
+     4                                 
+     5                                 
+     6                                 
+     7                                 [section .data]
+     8                                 
+     9                                 
+    10                                 EXIT_SUCCESS equ 0
+    11                                 SYS_exit equ 60
+    12                                 LIMIT equ 30
+    13                                 
+    14                                 
+    15                                 
+    16                                 
+    17                                 
+    18 00000000 11                     bVar1 db 17
+    19 00000001 09                     bVar2 db 9
+    20 00000002 00                     bResult db 0
+    21                                 
+    22                                 
+    23                                 
+    24                                 
+    25 00000003 6842                   wVar1 dw 17000
+    26 00000005 2823                   wVar2 dw 9000
+    27 00000007 0000                   wResult dw 0
+    28                                 
+    29                                 
+    30                                 
+    31                                 
+    32 00000009 40660301               dVar1 dd 17000000
+    33 0000000D 40548900               dVar2 dd 9000000
+    34 00000011 00000000               dResult dd 0
+    35                                 
+    36                                 [section .data]
+    37                                 
+    38                                 
+    39                                 
+    40 00000015 00F1536500000000       qVar1 dq 1700000000
+    41 0000001D 00E9A43500000000       qVar2 dq 900000000
+    42 00000025 0000000000000000       qResult dq 0
+    43                                 
+    44                                 
+    45                                 
+    46                                 
+    47                                 
+    48                                 [section .text]
+    49                                 [global _start]
+    50                                 
+    51                                 
+    52                                 
+    53                                 _start:
+    54                                 
+    55                                 
+    56                                 
+    57                                 
+    58 00000000 8A0425[00000000]       mov al, byte [bVar1]
+    59 00000007 020425[00000000]       add al, byte [bVar2]
+    60 0000000E 880425[00000000]       mov byte [bResult], al
+    61 00000015 6650                   push ax
+    62 00000017 E840000000             call _stackInspect
+    63                                 
+    64                                 
+    65                                 
+    66                                 
+    67 0000001C 668B0425[00000000]     mov ax, word [wVar1]
+    68 00000024 66030425[00000000]     add ax, word [wVar2]
+    69 0000002C 66890425[00000000]     mov word [wResult], ax
+    70                                 
+    71                                 
+    72                                 
+    73 00000034 8B0425[00000000]       mov eax, dword [dVar1]
+    74 0000003B 030425[00000000]       add eax, dword [dVar2]
+    75 00000042 890425[00000000]       mov dword [wResult], eax
+    76                                 
+    77                                 
+    78                                 
+    79 00000049 488B0425[00000000]     mov rax, qword [qVar1]
+    80 00000051 48030425[00000000]     add rax, qword [qVar2]
+    81 00000059 48890425[00000000]     mov qword [qResult], rax
+    82                                 
+    83                                 
+    84                                 
+    85                                 _stackInspect:
+    86 00000061 488B542408             mov rdx, qword [rsp + 8]
+    87 00000066 C3                     ret
+    88                                 
+    89                                 
+    90                                 
+    91                                 
+    92                                 exit:
+    93 00000067 48C7C03C000000         mov rax, SYS_exit
+    94 0000006E 48C7C700000000         mov rdi, EXIT_SUCCESS
+    95 00000075 0F05                   syscall
+    96                                 
+    97                                 
+    98                                 

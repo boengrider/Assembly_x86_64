@@ -24,6 +24,10 @@ fourBytes:
 	.size	eightBytes, 8
 eightBytes:
 	.quad	8294967296
+
+
+
+	
 	.text
 	.globl	main
 	.type	main, @function
