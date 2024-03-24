@@ -14,29 +14,34 @@ LIMIT        equ 30
 ;=============
 ; Byte (8-bit)
 ;============= 
-bVar1   db 17
-bVar2   db 9
+bVar1   db 0
+bVar2   db 0
 bResult db 0
+bVar3   db 255
 
+
+
+
+section .data
 ;==============
 ; Word (16-bit)
 ;==============
-wVar1   dw 17000
-wVar2   dw 9000
+wVar1   dw 0
+wVar2   dw 0
 wResult dw 0
 
 ;=====================
 ; Double-word (32-bit)
 ;=====================
-dVar1   dd 17000000
-dVar2   dd 9000000
+dVar1   dd 0
+dVar2   dd 0
 dResult dd 0
 
 ;=====================
 ; Quad-word (64-bit)
 ;=====================
-qVar1   dq 1700000000
-qVar2   dq 900000000
+qVar1   dq 0
+qVar2   dq 0
 qResult dq 0
 
 ;=====================
@@ -44,12 +49,12 @@ qResult dq 0
 ; age: Byte
 ; iq: Byte
 _personA:
-db 25
-db 120
+db 0
+db 0
 
 _personB: 
-db 30
-db 120
+db 255
+db 255
 
 
 ;***************************************************************
