@@ -30,13 +30,30 @@
     30 00000019 480FB6C8                movzx rcx, al
     31                                 
     32                                 
-    33                                 
-    34                                 
-    35                                 garbage:
-    36 0000001D 48C7C2FFFFFFFF          mov rdx, -1
-    37 00000024 88C2                    mov dl, al
-    38                                 
-    39                                 exit:
-    40 00000026 48C7C03C000000          mov rax, SYS_EXIT
-    41 0000002D 48C7C700000000          mov rdi, EXIT_SUCCESS
-    42 00000034 0F05                    syscall
+    33                                 movsxdSWC:
+    34 0000001D B9FFFFFFFF              mov ecx, -1
+    35 00000022 4863C1                  movsxd rax, ecx
+    36                                 
+    37                                 
+    38                                 signedCwdConversion:
+    39 00000025 B0FF                    mov al, -1
+    40 00000027 6699                    cwd
+    41                                 
+    42                                 
+    43                                 unsignedCwdConversion:
+    44 00000029 48C7C000000000          mov rax, 0
+    45 00000030 B00A                    mov al, 10
+    46 00000032 6699                    cwd
+    47                                 
+    48                                 
+    49                                 
+    50                                 
+    51                                 
+    52                                 garbage:
+    53 00000034 48C7C2FFFFFFFF          mov rdx, -1
+    54 0000003B 88C2                    mov dl, al
+    55                                 
+    56                                 exit:
+    57 0000003D 48C7C03C000000          mov rax, SYS_EXIT
+    58 00000044 48C7C700000000          mov rdi, EXIT_SUCCESS
+    59 0000004B 0F05                    syscall

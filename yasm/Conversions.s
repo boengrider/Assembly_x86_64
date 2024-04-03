@@ -28,6 +28,23 @@ movzxUWC:
     mov rcx, -1               ; Store -1 (0xffffffffffffffff) in $rcx
     movzx rcx, al             ; $rcx -> 0x0000000000000032
 
+;Signed widening conversion using movsxd
+movsxdSWC:
+    mov ecx, -1               ; Store -1 (0xffffffff) in $ecx
+    movsxd rax, ecx           ; Move and sign extend value in $ecx
+
+;Signed widening conversion using cwd
+signedCwdConversion:
+    mov al, -1                ; Store -1 (0xff) in $al
+    cwd                       ; $dx contains 0xffffffff
+
+;Unsigned widening conversion using cwd
+unsignedCwdConversion:
+    mov rax, 0
+    mov al, 10
+    cwd
+
+
 ;This produces garbage
 ;Unlike movzx, destination register is not "zero extended" and thus original value in the 
 ;rdx is preserved and we only store lower 8 bits
