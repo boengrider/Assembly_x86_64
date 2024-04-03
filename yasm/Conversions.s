@@ -1,5 +1,5 @@
 ;Widening unsigned conversions
-;Data type muste be known
+;Data type must be known
 ;Appropriate instructions must be used
 
 ;CONSTANTS
