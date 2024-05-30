@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "pthread.h": "c"
+    },
+    "cmake.configureOnOpen": true
+}
